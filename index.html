@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>Daily Care</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
+<meta name="theme-color" content="#0b100e">
+<meta name="description" content="毎日の健康・美容記録">
+
+<!-- iPhoneでホーム画面から全画面起動するための指定 -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Daily Care">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ===== 上部ヘッダー ===== -->
+<header class="appbar" id="appbar">
+  <div class="appbar-top">
+    <div>
+      <div class="date" id="hDate">----/--/--</div>
+      <div class="countdown" id="hCountdown">&nbsp;</div>
+    </div>
+    <div class="score">
+      <span id="hScore">0</span><span class="score-sep">/</span><span id="hScoreMax">10</span>
+    </div>
+  </div>
+  <div class="progress"><i id="hProgress"></i></div>
+  <div class="editbar" id="editBar" hidden>
+    <span>過去の日付を編集中</span>
+    <button type="button" id="btnBackToday" class="mini">今日に戻る</button>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ===== 今日画面 ===== -->
+  <section id="viewToday" class="view">
+
+    <h2 class="sec">記録（タップで現在時刻）</h2>
+    <div id="timeList" class="list"></div>
+
+    <h2 class="sec">チェック項目</h2>
+    <div id="checkList" class="chips"></div>
+
+    <h2 class="sec">体調（任意・0〜10）</h2>
+    <div id="condList"></div>
+
+    <h2 class="sec">任意記録</h2>
+    <div class="card">
+      <div class="numrow">
+        <label class="numfield">体重
+          <span class="unitwrap"><input type="number" id="inWeight" inputmode="decimal" step="0.1" placeholder="--"><span class="unit">kg</span></span>
+        </label>
+        <label class="numfield">ウエスト
+          <span class="unitwrap"><input type="number" id="inWaist" inputmode="decimal" step="0.1" placeholder="--"><span class="unit">cm</span></span>
+        </label>
+      </div>
+      <label class="memolabel">メモ
+        <textarea id="inMemo" rows="3" placeholder="自由記入（任意）"></textarea>
+      </label>
+    </div>
+
+    <h2 class="sec">今日のまとめ</h2>
+    <div class="card">
+      <button type="button" id="btnReport" class="primary wide">報告文を生成</button>
+      <div id="reportWrap" hidden>
+        <textarea id="reportText" class="report" readonly rows="18"></textarea>
+        <div class="row2">
+          <button type="button" id="btnCopy" class="ghost wide">コピー</button>
+          <button type="button" id="btnSelect" class="ghost wide">全選択</button>
+        </div>
+        <p class="hint" id="copyHint">&nbsp;</p>
+      </div>
+    </div>
+
+    <p class="foot">保存先: この端末のブラウザ内（localStorage）</p>
+  </section>
+
+  <!-- ===== 履歴画面 ===== -->
+  <section id="viewHistory" class="view" hidden>
+    <h2 class="sec">履歴</h2>
+    <div class="histhead">
+      <span>日付</span><span>達成</span><span>起床</span><span>就寝</span><span>筋トレ</span>
+    </div>
+    <div id="histList" class="list"></div>
+    <p class="foot" id="histEmpty" hidden>まだ記録がありません。</p>
+  </section>
+
+</main>
+
+<!-- ===== 下部タブ ===== -->
+<nav class="tabbar">
+  <button type="button" class="tab is-on" data-view="today">今日</button>
+  <button type="button" class="tab" data-view="history">履歴</button>
+</nav>
+
+<!-- ===== 時刻の修正シート ===== -->
+<div id="sheet" class="sheet" hidden>
+  <div class="sheet-bg" data-close="1"></div>
+  <div class="sheet-body" role="dialog" aria-modal="true">
+    <h3 id="sheetTitle">時刻の修正</h3>
+    <input type="time" id="sheetTime" class="timeinput">
+    <button type="button" id="sheetNow" class="ghost wide">現在時刻にする</button>
+    <button type="button" id="sheetSave" class="primary wide">保存</button>
+    <button type="button" id="sheetDelete" class="danger wide">記録を削除</button>
+    <button type="button" id="sheetCancel" class="ghost wide" data-close="1">キャンセル</button>
+  </div>
+</div>
+
+<div id="toast" class="toast" hidden></div>
+
+<script src="js/config.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
