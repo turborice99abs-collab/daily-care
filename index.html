@@ -32,19 +32,9 @@
     </div>
   </div>
   <div class="progress"><i id="hProgress"></i></div>
-
   <div class="editbar" id="editBar" hidden>
     <span>過去の日付を編集中</span>
     <button type="button" id="btnBackToday" class="mini">今日に戻る</button>
-  </div>
-
-  <!-- 昨日の就寝を押し忘れたとき用 -->
-  <div class="notice" id="sleepNotice" hidden>
-    <span>昨日の就寝が未記録です</span>
-    <span class="nowrap">
-      <button type="button" id="btnFixSleep" class="mini">入力</button>
-      <button type="button" id="btnHideSleep" class="mini" aria-label="閉じる">×</button>
-    </span>
   </div>
 </header>
 
@@ -54,47 +44,43 @@
   <section id="viewToday" class="view">
 
     <h2 class="sec">記録（タップで現在時刻）</h2>
-    <div id="timeList" class="slots"></div>
+    <div id="timeList" class="list"></div>
 
     <h2 class="sec">チェック項目</h2>
     <div id="checkList" class="chips"></div>
 
-    <h2 class="sec">体調（任意）</h2>
+    <h2 class="sec">体調（任意・0〜10）</h2>
     <div id="condList"></div>
 
-    <details class="fold">
-      <summary>任意記録（体重・ウエスト・メモ）</summary>
-      <div class="fold-body">
-        <div class="numrow">
-          <label class="numfield">体重
-            <span class="unitwrap"><input type="number" id="inWeight" inputmode="decimal" step="0.1" placeholder="--"><span class="unit">kg</span></span>
-          </label>
-          <label class="numfield">ウエスト
-            <span class="unitwrap"><input type="number" id="inWaist" inputmode="decimal" step="0.1" placeholder="--"><span class="unit">cm</span></span>
-          </label>
-        </div>
-        <label class="memolabel">メモ
-          <textarea id="inMemo" rows="3" placeholder="自由記入（任意）"></textarea>
+    <h2 class="sec">任意記録</h2>
+    <div class="card">
+      <div class="numrow">
+        <label class="numfield">体重
+          <span class="unitwrap"><input type="number" id="inWeight" inputmode="decimal" step="0.1" placeholder="--"><span class="unit">kg</span></span>
+        </label>
+        <label class="numfield">ウエスト
+          <span class="unitwrap"><input type="number" id="inWaist" inputmode="decimal" step="0.1" placeholder="--"><span class="unit">cm</span></span>
         </label>
       </div>
-    </details>
+      <label class="memolabel">メモ
+        <textarea id="inMemo" rows="3" placeholder="自由記入（任意）"></textarea>
+      </label>
+    </div>
 
-    <details class="fold" id="foldReport">
-      <summary>今日のまとめ・報告文</summary>
-      <div class="fold-body">
-        <button type="button" id="btnReport" class="primary wide">報告文を生成</button>
-        <div id="reportWrap" hidden>
-          <textarea id="reportText" class="report" readonly rows="16"></textarea>
-          <div class="row2">
-            <button type="button" id="btnCopy" class="ghost wide">コピー</button>
-            <button type="button" id="btnSelect" class="ghost wide">全選択</button>
-          </div>
-          <p class="hint" id="copyHint">&nbsp;</p>
+    <h2 class="sec">今日のまとめ</h2>
+    <div class="card">
+      <button type="button" id="btnReport" class="primary wide">報告文を生成</button>
+      <div id="reportWrap" hidden>
+        <textarea id="reportText" class="report" readonly rows="18"></textarea>
+        <div class="row2">
+          <button type="button" id="btnCopy" class="ghost wide">コピー</button>
+          <button type="button" id="btnSelect" class="ghost wide">全選択</button>
         </div>
+        <p class="hint" id="copyHint">&nbsp;</p>
       </div>
-    </details>
+    </div>
 
-    <p class="foot">保存先: この端末の中（v<span id="fVer"></span>）</p>
+    <p class="foot">保存先: この端末のブラウザ内（localStorage）</p>
   </section>
 
   <!-- ===== 履歴画面 ===== -->
@@ -105,16 +91,6 @@
     </div>
     <div id="histList" class="list"></div>
     <p class="foot" id="histEmpty" hidden>まだ記録がありません。</p>
-
-    <h2 class="sec">データの管理</h2>
-    <div class="card">
-      <button type="button" id="btnExport" class="ghost wide">バックアップを書き出す</button>
-      <div style="height:10px"></div>
-      <button type="button" id="btnImport" class="danger wide">バックアップから復元</button>
-      <input type="file" id="fileImport" accept="application/json,.json" hidden>
-      <textarea id="exportText" class="report" readonly rows="6" hidden></textarea>
-      <p class="hint">復元は同じ日付の記録を上書きします。取り消せません。</p>
-    </div>
   </section>
 
 </main>
@@ -135,20 +111,6 @@
     <button type="button" id="sheetSave" class="primary wide">保存</button>
     <button type="button" id="sheetDelete" class="danger wide">記録を削除</button>
     <button type="button" id="sheetCancel" class="ghost wide" data-close="1">キャンセル</button>
-  </div>
-</div>
-
-<!-- ===== 食事の詳細シート ===== -->
-<div id="mealSheet" class="sheet" hidden>
-  <div class="sheet-bg" data-close="1"></div>
-  <div class="sheet-body" role="dialog" aria-modal="true">
-    <h3 id="mealTitle">食事の詳細</h3>
-    <input type="text" id="mealText" class="textinput" placeholder="食べたもの（任意）">
-    <div class="chips">
-      <button type="button" class="chip" id="mealProtein">たんぱく質</button>
-      <button type="button" class="chip" id="mealVeggie">野菜・果物</button>
-    </div>
-    <button type="button" id="mealClose" class="primary wide" data-close="1">閉じる</button>
   </div>
 </div>
 

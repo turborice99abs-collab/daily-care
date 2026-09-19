@@ -1,6 +1,6 @@
 /* sw.js --- オフラインでも起動できるようにファイルを保存しておく係。
    ファイルを更新したら CACHE の "v1" を v2, v3 と上げること。 */
-const CACHE = 'dailycare-v2';
+const CACHE = 'dailycare-v1';
 const ASSETS = [
   './', './index.html', './css/style.css',
   './js/config.js', './js/storage.js', './js/app.js',

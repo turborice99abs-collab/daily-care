@@ -1,11 +1,10 @@
 /* ============================================================
    style.css --- スマホ縦画面が最優先。黒・白・深緑のダークUI
-   v0.2: 一覧性を上げるため各パーツを圧縮
    ============================================================ */
 :root{
   --bg:#0b100e; --panel:#131a17; --panel2:#1b2420; --line:#27352e;
   --txt:#e9efeb; --sub:#8ea497; --green:#2f9e6e; --green-d:#1f6d4c;
-  --danger:#c0554d; --radius:12px;
+  --danger:#c0554d; --radius:14px;
   --safe-t:env(safe-area-inset-top,0px);
   --safe-b:env(safe-area-inset-bottom,0px);
 }
@@ -21,149 +20,137 @@ body{
 }
 button,input,textarea{font-family:inherit; font-size:16px; color:inherit}
 h2,h3{margin:0}
-.nowrap{white-space:nowrap}
 
 /* ---------- ヘッダー ---------- */
 .appbar{
   position:sticky; top:0; z-index:20;
   background:rgba(11,16,14,.96); backdrop-filter:blur(8px);
   border-bottom:1px solid var(--line);
-  padding:calc(var(--safe-t) + 9px) 16px 7px;
+  padding:calc(var(--safe-t) + 10px) 16px 8px;
 }
 .appbar-top{display:flex; align-items:flex-end; justify-content:space-between; gap:12px}
-.date{font-size:19px; font-weight:700; letter-spacing:.02em}
-.countdown{font-size:12px; color:var(--sub); margin-top:1px}
-.countdown b{color:var(--green); font-size:13.5px}
+.date{font-size:20px; font-weight:700; letter-spacing:.02em}
+.countdown{font-size:12.5px; color:var(--sub); margin-top:2px}
+.countdown b{color:var(--green); font-size:14px}
 .score{font-variant-numeric:tabular-nums; font-weight:700; line-height:1; white-space:nowrap}
-.score #hScore{font-size:28px; color:var(--green)}
+.score #hScore{font-size:30px; color:var(--green)}
 .score-sep{margin:0 3px; color:var(--sub)}
-.score #hScoreMax{font-size:15px; color:var(--sub)}
-.progress{height:4px; background:var(--panel2); border-radius:99px; margin-top:8px; overflow:hidden}
+.score #hScoreMax{font-size:16px; color:var(--sub)}
+.progress{height:5px; background:var(--panel2); border-radius:99px; margin-top:9px; overflow:hidden}
 .progress i{display:block; height:100%; width:0%; background:var(--green); transition:width .25s ease}
-.editbar,.notice{
-  display:flex; align-items:center; justify-content:space-between; gap:8px;
-  margin-top:8px; padding:6px 10px; border-radius:9px; font-size:13px;
+.editbar{
+  display:flex; align-items:center; justify-content:space-between; gap:10px;
+  margin-top:9px; padding:7px 10px; border-radius:10px;
+  background:#3a2f12; color:#f0d79a; font-size:13px;
 }
-.editbar{background:#3a2f12; color:#f0d79a}
-.notice{background:#12352a; color:#a8e6c6; border:1px solid var(--green-d)}
-.notice .mini{margin-left:6px}
 
 /* ---------- レイアウト ---------- */
-#main{padding:2px 16px calc(var(--safe-b) + 88px)}
-.sec{font-size:12px; color:var(--sub); font-weight:600; margin:16px 0 7px; letter-spacing:.06em}
-.card{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:13px}
-.list{display:flex; flex-direction:column; gap:8px}
-.foot{color:var(--sub); font-size:11.5px; text-align:center; margin:20px 0 6px}
-.hint{font-size:11.5px; color:var(--sub); margin:8px 0 0; text-align:center}
+#main{padding:4px 16px calc(var(--safe-b) + 92px)}
+.sec{font-size:13px; color:var(--sub); font-weight:600; margin:22px 0 9px; letter-spacing:.06em}
+.card{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:14px}
+.list{display:flex; flex-direction:column; gap:9px}
+.foot{color:var(--sub); font-size:12px; text-align:center; margin:26px 0 8px}
+.hint{font-size:12px; color:var(--sub); margin:8px 0 0; text-align:center}
 
-/* ---------- 時刻ボタン（2列） ---------- */
-.slots{display:grid; grid-template-columns:1fr 1fr; gap:8px}
-.slot{position:relative; background:var(--panel); border:1px solid var(--line); border-radius:var(--radius)}
+/* ---------- 時刻ボタン ---------- */
+.slot{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden}
+.slot-main{display:flex; align-items:stretch}
 .tapbtn{
-  width:100%; display:flex; flex-direction:column; align-items:flex-start; justify-content:center;
-  gap:1px; min-height:56px; padding:6px 12px; background:transparent; border:0; cursor:pointer;
+  flex:1; display:flex; align-items:center; justify-content:space-between;
+  min-height:60px; padding:0 16px; background:transparent; border:0; cursor:pointer;
 }
-.tapbtn .lbl{font-size:13px; color:var(--sub); font-weight:600}
-.tapbtn .val{font-size:21px; font-weight:700; font-variant-numeric:tabular-nums; color:var(--sub); line-height:1.15}
-.slot.done{border-color:var(--green-d); background:linear-gradient(135deg,rgba(47,158,110,.16),rgba(47,158,110,.04))}
-.slot.done .lbl{color:var(--green)}
+.tapbtn .lbl{font-size:17px; font-weight:600}
+.tapbtn .val{font-size:22px; font-weight:700; font-variant-numeric:tabular-nums; color:var(--sub)}
+.slot.done{border-color:var(--green-d); background:linear-gradient(90deg,rgba(47,158,110,.14),rgba(47,158,110,.04))}
 .slot.done .val{color:var(--green)}
+.slot.done .lbl::before{content:"✓ "; color:var(--green)}
 .more{
-  position:absolute; top:4px; right:4px; width:34px; height:34px; padding:0;
-  border:0; background:transparent; color:var(--sub); font-size:17px; line-height:1; cursor:pointer;
+  width:62px; border:0; border-left:1px solid var(--line); background:transparent;
+  color:var(--sub); font-size:12px; cursor:pointer;
 }
-.more.filled{color:var(--green)}
+.more.open{color:var(--green)}
+.detail{border-top:1px solid var(--line); padding:12px 14px; background:var(--panel2)}
+.detail input[type=text]{
+  width:100%; min-height:46px; padding:9px 12px; margin-bottom:10px;
+  background:var(--bg); border:1px solid var(--line); border-radius:10px;
+}
+.detail .chips{margin:0}
 
 /* ---------- チップ（ON/OFF） ---------- */
-.chips{display:grid; grid-template-columns:1fr 1fr; gap:8px}
+.chips{display:grid; grid-template-columns:1fr 1fr; gap:9px}
 .chip{
-  min-height:46px; padding:6px 10px; border-radius:var(--radius);
+  min-height:56px; padding:8px 12px; border-radius:var(--radius);
   background:var(--panel); border:1px solid var(--line); color:var(--txt);
-  font-size:14.5px; font-weight:600; cursor:pointer; text-align:center;
+  font-size:15.5px; font-weight:600; cursor:pointer; text-align:center;
 }
 .chip.on{background:var(--green-d); border-color:var(--green); color:#fff}
 .chip.on::before{content:"✓ "}
 .chip.opt{border-style:dashed}
 
-/* ---------- 体調（1行スケール） ---------- */
-.cond{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:9px 10px 8px; margin-bottom:8px}
-.cond-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:7px}
-.cond-head .name{font-size:14px; font-weight:600}
-.cond-head .right{display:flex; align-items:center; gap:8px}
-.cond-head .now{font-size:14px; color:var(--sub); font-variant-numeric:tabular-nums}
+/* ---------- 体調 ---------- */
+.cond{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:12px 12px 10px; margin-bottom:9px}
+.cond-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:9px}
+.cond-head .name{font-size:15px; font-weight:600}
+.cond-head .now{font-size:15px; color:var(--sub); font-variant-numeric:tabular-nums}
 .cond-head .now.set{color:var(--green); font-weight:700}
-.cond-head .clear{background:transparent; border:1px solid var(--line); color:var(--sub);
-  border-radius:7px; font-size:11px; padding:3px 8px; cursor:pointer}
-.scale{display:grid; grid-template-columns:repeat(11,1fr); gap:3px}
+.scale{display:grid; grid-template-columns:repeat(6,1fr); gap:6px}
 .sc{
-  min-height:40px; padding:0; border-radius:7px; background:var(--panel2); border:1px solid var(--line);
-  color:var(--sub); font-size:13px; font-variant-numeric:tabular-nums; cursor:pointer;
+  min-height:44px; border-radius:10px; background:var(--panel2); border:1px solid var(--line);
+  color:var(--sub); font-size:14px; font-variant-numeric:tabular-nums; cursor:pointer;
 }
 .sc.on{background:var(--green); border-color:var(--green); color:#04140d; font-weight:700}
+.sc.clear{color:var(--sub); font-size:12px}
 
-/* ---------- 折りたたみ ---------- */
-.fold{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); margin-top:12px; overflow:hidden}
-.fold>summary{
-  list-style:none; cursor:pointer; min-height:48px; display:flex; align-items:center;
-  padding:0 14px; font-size:14px; font-weight:600; color:var(--txt);
-}
-.fold>summary::-webkit-details-marker{display:none}
-.fold>summary::after{content:"▾"; margin-left:auto; color:var(--sub)}
-.fold[open]>summary::after{content:"▴"}
-.fold[open]>summary{border-bottom:1px solid var(--line)}
-.fold-body{padding:13px}
-
-/* ---------- 入力欄 ---------- */
+/* ---------- 任意記録 ---------- */
 .numrow{display:grid; grid-template-columns:1fr 1fr; gap:12px}
-.numfield,.memolabel{display:block; font-size:12px; color:var(--sub)}
+.numfield,.memolabel{display:block; font-size:12.5px; color:var(--sub)}
 .memolabel{margin-top:12px}
 .unitwrap{display:flex; align-items:center; gap:6px; margin-top:5px}
-.numfield input, .memolabel textarea, .textinput{
-  width:100%; min-height:46px; padding:9px 12px;
+.numfield input, .memolabel textarea{
+  width:100%; min-height:48px; padding:9px 12px;
   background:var(--bg); border:1px solid var(--line); border-radius:10px; color:var(--txt);
 }
-.memolabel textarea{margin-top:5px; min-height:70px; resize:vertical; line-height:1.6}
+.memolabel textarea{margin-top:5px; min-height:74px; resize:vertical; line-height:1.6}
 .unit{color:var(--sub); font-size:13px}
 
 /* ---------- ボタン ---------- */
 button{cursor:pointer}
-.primary{background:var(--green); color:#04140d; border:0; border-radius:11px; min-height:48px; font-weight:700}
-.ghost{background:var(--panel2); color:var(--txt); border:1px solid var(--line); border-radius:11px; min-height:48px; font-weight:600}
-.danger{background:transparent; color:var(--danger); border:1px solid var(--danger); border-radius:11px; min-height:48px; font-weight:600}
+.primary{background:var(--green); color:#04140d; border:0; border-radius:12px; min-height:52px; font-weight:700}
+.ghost{background:var(--panel2); color:var(--txt); border:1px solid var(--line); border-radius:12px; min-height:52px; font-weight:600}
+.danger{background:transparent; color:var(--danger); border:1px solid var(--danger); border-radius:12px; min-height:52px; font-weight:600}
 .wide{width:100%}
-.mini{background:transparent; border:1px solid currentColor; color:inherit; border-radius:7px; padding:4px 9px; font-size:12px}
+.mini{background:transparent; border:1px solid currentColor; color:inherit; border-radius:8px; padding:5px 10px; font-size:12px}
 .row2{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px}
 
 /* ---------- 報告文 ---------- */
 .report{
-  width:100%; margin-top:12px; padding:12px; line-height:1.8;
+  width:100%; margin-top:12px; padding:12px; line-height:1.85;
   background:var(--bg); color:var(--txt); border:1px solid var(--green-d); border-radius:10px;
-  font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:13.5px; resize:vertical;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:14px; resize:vertical;
 }
 
 /* ---------- 履歴 ---------- */
 .histhead,.hist{display:grid; grid-template-columns:1.5fr .7fr .8fr .8fr .7fr; gap:6px; align-items:center}
 .histhead{font-size:11px; color:var(--sub); padding:0 12px 6px}
 .hist{
-  width:100%; text-align:left; min-height:52px; padding:7px 12px;
-  background:var(--panel); border:1px solid var(--line); border-radius:11px;
+  width:100%; text-align:left; min-height:56px; padding:8px 12px;
+  background:var(--panel); border:1px solid var(--line); border-radius:12px;
   color:var(--txt); font-size:14px; font-variant-numeric:tabular-nums;
 }
 .hist .d{font-weight:700}
 .hist .d small{display:block; color:var(--sub); font-weight:400; font-size:11px}
 .hist .s{color:var(--green); font-weight:700}
 .hist.today{border-color:var(--green)}
-.pmark{color:#e08aa8; font-size:11px; margin-left:3px}
 
 /* ---------- タブ ---------- */
 .tabbar{
   position:fixed; left:0; right:0; bottom:0; z-index:30;
   display:grid; grid-template-columns:1fr 1fr; gap:8px;
-  padding:7px 16px calc(var(--safe-b) + 7px);
+  padding:8px 16px calc(var(--safe-b) + 8px);
   background:rgba(11,16,14,.97); border-top:1px solid var(--line); backdrop-filter:blur(8px);
 }
 .tab{
-  min-height:46px; border-radius:11px; border:1px solid var(--line);
+  min-height:50px; border-radius:12px; border:1px solid var(--line);
   background:var(--panel); color:var(--sub); font-weight:700;
 }
 .tab.is-on{background:var(--green-d); border-color:var(--green); color:#fff}
@@ -177,16 +164,16 @@ button{cursor:pointer}
   padding:18px 16px calc(var(--safe-b) + 18px);
   display:flex; flex-direction:column; gap:10px;
 }
-.sheet-body h3{font-size:17px; margin-bottom:2px}
+.sheet-body h3{font-size:17px; margin-bottom:4px}
 .timeinput{
-  width:100%; min-height:56px; text-align:center; font-size:26px; font-weight:700;
+  width:100%; min-height:58px; text-align:center; font-size:26px; font-weight:700;
   background:var(--bg); border:1px solid var(--line); border-radius:12px; color:var(--txt);
 }
 
 /* ---------- トースト ---------- */
 .toast{
   position:fixed; left:50%; transform:translateX(-50%);
-  bottom:calc(var(--safe-b) + 78px); z-index:60;
+  bottom:calc(var(--safe-b) + 84px); z-index:60;
   background:#f1f6f3; color:#0b100e; font-size:14px; font-weight:600;
   padding:10px 18px; border-radius:99px; box-shadow:0 6px 20px rgba(0,0,0,.45);
 }
